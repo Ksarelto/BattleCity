@@ -1,0 +1,140 @@
+@media screen and (max-width: 1030px) and (max-height: 770px) {
+    .field {
+        display: block;
+        max-height: auto;
+    }
+    .joystick {
+        width: 200px;
+        height: 200px;
+        left: 5px;
+        bottom: 5px;
+    }
+    .fireButton {
+        width: 180px;
+        height: 180px;
+        font-size: 3rem;
+        right: 25px;
+        bottom: 25px;
+    }
+    .map {
+        margin: 60px auto;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    html {
+        font-size: 8px;
+    }
+    .wrap .container img {
+        max-width: 70rem;
+    }
+    .options form {
+        height: 13rem;
+    }
+    .options label {
+        font-size: 2rem;
+    }
+    .options .sound,
+    .options .vibration {
+        margin: 2rem;
+    }
+}
+
+@media screen and (max-width: 850px) {
+    .joystick {
+        width: 170px;
+        height: 170px;
+        left: 5px;
+        bottom: 5px;
+    }
+    .fireButton {
+        width: 120px;
+        height: 120px;
+        font-size: 3rem;
+        right: 25px;
+        bottom: 25px;
+    }
+}
+
+@media screen and (max-width: 1100px) and (orientation: portrait) {
+    .joystick {
+        width: 300px;
+        height: 300px;
+        left: 5px;
+        bottom: 5px;
+    }
+    .fireButton {
+        width: 170px;
+        height: 170px;
+        font-size: 3rem;
+        right: 25px;
+        bottom: 25px;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    html {
+        font-size: 7px;
+    }
+    .options label {
+        font-size: 2rem;
+    }
+    .options form {
+        width: 30rem;
+        height: 15rem;
+        left: 30rem;
+    }
+    .options input {
+        width: 12px;
+        vertical-align: bottom;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .credits h3 {
+        font-size: 2rem;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .wrap .container img {
+        max-width: 65rem;
+    }
+    .options label {
+        font-size: 2rem;
+    }
+    .options form {
+        top: 15rem;
+        left: 0rem;
+    }
+    .highContainer {
+        padding: 3rem 2rem;
+    }
+    .controlsContainer .controlsList ol li,
+    .controlsContainer p {
+        font-size: 1.5rem;
+    }
+}
+
+@media screen and (max-height: 650px) {
+    .scoreTable {
+        position: absolute;
+        left: 0;
+        transform: translateX(0);
+        top: 0;
+        text-align: initial;
+        padding-top: 10px;
+        display: flex;
+        flex-direction: column;
+    }
+    .scoreTable p {
+        font-size: 3rem;
+    }
+}
+
+@media screen and (max-height: 500px) {
+    .highContainer {
+        max-height: 40rem;
+        min-height: auto;
+    }
+}

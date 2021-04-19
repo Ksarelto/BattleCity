@@ -1,0 +1,414 @@
+html {
+	font-size: 10px;
+	font-family: "PerfectDOSVGA437";
+}
+body {
+	background-color: grey;
+}
+.wrap {
+	max-width: 1400px;
+	margin: 0 auto;
+	background-color: black;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.container {
+	max-width: 800px;
+	transform: translateY(-100%);
+	opacity: 0;
+	animation: showMainPage 1.5s ease-out forwards;
+}
+.container h1 {
+	font-size: 9rem;
+	text-transform: uppercase;
+	text-align: center;
+	margin-bottom: 3rem;
+	color: red;
+}
+.container > form {
+	text-align: center;
+	font-size: 3rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	color: white;
+	font-weight: bold;
+}
+.container > form input {
+	margin-bottom: 1rem;
+	font-size: 3rem;
+	background-color: #000;
+	color: #fff;
+	width: 100%;
+	cursor: pointer;
+	text-align: center;
+}
+.container ul li:before {
+	content: "\00A9";
+	display: inline-block;
+	padding-right: 2rem;
+	opacity: 0;
+}
+.container ul li:hover:before {
+	opacity: 1;
+}
+.options {
+	position: absolute;
+	left: 0;
+	top: 0;
+	background: transparent;
+	z-index: -1;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	opacity: 0;
+	transition: all 0.5s ease 0.5s;
+}
+.options form {
+	position: relative;
+	left: 32rem;
+	top: 10rem;
+	width: 34rem;
+	height: 15rem;
+	background-color: grey;
+	border: 1px solid red;
+	border-radius: 10px;
+}
+.options form input[type="button"] {
+	position: absolute;
+	right: 5px;
+	top: 5px;
+	background-color: transparent;
+	font-size: 2rem;
+	cursor: pointer;
+}
+.options .sound,
+.options .vibration,
+.options .fullscreen {
+	margin: 1.5rem;
+}
+.options label {
+	font-size: 3rem;
+	display: inline-block;
+}
+.options span {
+	font-size: 2rem;
+	padding-left: 1rem;
+}
+body .visible {
+	z-index: 1;
+	opacity: 1;
+}
+
+/*Highscore*/
+
+.highscore {
+	max-width: 1400px;
+	height: 100%;
+	margin: 0 auto;
+	background-color: black;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.highContainer {
+	max-width: 90rem;
+	min-height: 50rem;
+	max-height: 65rem;
+	background-color: #b3b1ab;
+	padding: 4rem;
+	border-radius: 30px;
+	overflow-y: auto;
+	position: relative;
+	transform: translateY(-100%);
+	opacity: 0;
+	animation: 1.5s linear showMainPage forwards;
+}
+.highContainer > span,
+.controlsContainer > span {
+	position: absolute;
+	top: 15px;
+	right: 15px;
+	font-size: 2rem;
+	cursor: pointer;
+}
+.highContainer h2 {
+	font-size: 6rem;
+	margin-bottom: 5rem;
+	text-align: center;
+	color: white;
+}
+.table .table_discript {
+	display: flex;
+	width: 40rem;
+	background-color: #f5edd5;
+	padding: 1rem 0;
+	margin-bottom: 2rem;
+}
+.table .table_discript span {
+	font-size: 2.5rem;
+	flex: 1 1 14rem;
+	text-align: center;
+}
+.table .table_discript span:nth-child(2) {
+	flex: 1 0 16rem;
+}
+.playersScore {
+	display: flex;
+	width: 40rem;
+	background-color: #dedbd1;
+}
+
+.playersScore span {
+	font-size: 1.7rem;
+	flex: 1 1 20rem;
+	text-align: center;
+	margin: 1rem 0;
+}
+.show {
+	z-index: 3;
+	transform: translateY(0);
+}
+
+/*Credits*/
+.controlsContainer {
+	max-width: 75rem;
+	display: flex;
+	justify-content: space-between;
+	background-color: #8e8273;
+	border-radius: 30px;
+	position: relative;
+	margin: 0 auto;
+	padding: 2rem 4rem;
+	color: #ddd;
+	transform: translateY(-100%);
+	opacity: 0;
+	animation: 1.5s linear showMainPage forwards;
+}
+.controlsContainer > div {
+	flex: 0 1 48%;
+}
+.controlsContainer > div:first-of-type {
+	border-right: 1px solid black;
+}
+.controlsContainer h2 {
+	font-size: 4rem;
+	text-align: center;
+}
+.controlsContainer .controlsList ol li {
+	font-size: 2rem;
+	padding-left: 1rem;
+}
+.controlsContainer .controlsList ol li span {
+	font-weight: bold;
+	font-style: italic;
+}
+.controlsContainer p {
+	font-size: 2.5rem;
+}
+
+/*Show Main Page*/
+
+@keyframes showMainPage {
+	0% {
+		transform: translateY(-200%);
+		opacity: 0;
+	}
+	100% {
+		transform: translateY(0);
+		opacity: 1;
+	}
+}
+
+/*Styles for main Game*/
+
+.field {
+	max-width: 1400px;
+	height: 100%;
+	padding: 1px 0;
+	margin: 0 auto;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+}
+
+.map {
+	width: 800px;
+	height: 540px;
+	max-height: 1000px;
+	background-color: black;
+	margin: 30px auto;
+	position: relative;
+}
+
+.joystick {
+	width: 280px;
+	height: 280px;
+	margin: 0 auto;
+	position: absolute;
+	left: 10px;
+	bottom: 10px;
+	opacity: 0.5;
+	display: none;
+}
+.fireButton {
+	position: absolute;
+	right: 50px;
+	bottom: 50px;
+	width: 180px;
+	height: 180px;
+	border-radius: 50%;
+	font-size: 4rem;
+	opacity: 0.5;
+	display: none;
+}
+.scoreTable {
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+	top: 0;
+	text-align: center;
+	padding-top: 10px;
+}
+.scoreTable p {
+	display: inline-block;
+	font-size: 4rem;
+}
+.scoreTable .killedTanks {
+	margin-right: 4rem;
+}
+
+@keyframes boom {
+	0% {
+		background-position: 0px 0px;
+	}
+
+	100% {
+		background-position: -120px 0px;
+	}
+}
+
+@keyframes playerMove {
+	0% {
+		background-position: -24px 1px;
+	}
+
+	100% {
+		background-position: -104px 1px;
+	}
+}
+
+@keyframes boom {
+	0% {
+		background-position: 0 0;
+	}
+
+	100% {
+		background-position: -160px 0px;
+	}
+}
+
+@keyframes moveLight {
+	0% {
+		background-position: -24px -82px;
+	}
+
+	100% {
+		background-position: -104px -82px;
+	}
+}
+
+@keyframes moveMiddle {
+	0% {
+		background-position: -24px -122px;
+	}
+
+	100% {
+		background-position: -104px -122px;
+	}
+}
+
+@keyframes moveHeavy {
+	0% {
+		background-position: -24px -162px;
+	}
+
+	100% {
+		background-position: -104px -162px;
+	}
+}
+
+@keyframes boom2 {
+	0% {
+		background-position: 0px 0px;
+	}
+
+	100% {
+		background-position: -120px 0px;
+	}
+}
+
+@keyframes tankBlow {
+	0% {
+		background-position: -20px 0;
+	}
+
+	100% {
+		background-position: -546px 0;
+	}
+}
+.gameOver {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	color: white;
+	left: 0;
+	top: 0;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	transform: translateY(-100%);
+	opacity: 0;
+	transition: all 2s ease-in-out;
+}
+.gameOver p {
+	font-size: 6rem;
+	margin-bottom: 3rem;
+}
+.gameOver .gameOverWrapper {
+	width: 20rem;
+	text-align: center;
+	background-color: #565454;
+	padding: 5px;
+	border-radius: 10px;
+	opacity: 0;
+	transition: all 1s ease-in-out;
+}
+.gameOver .gameOverWrapper span {
+	display: inline-block;
+	font-size: 1rem;
+}
+.gameOver .gameOverWrapper span:first-child {
+	margin-bottom: 1.5rem;
+	font-size: 1.5rem;
+}
+.gameOver .gameOverWrapper form {
+	margin-top: 1rem;
+}
+.gameOver .gameOverWrapper form button {
+	width: 6rem;
+	padding: 0.3rem 0;
+}
+.gameOver .gameOverWrapper form button:hover {
+	background-color: #565454;
+}
+.gameOver .gameOverWrapper form button:first-child {
+	margin-right: 0.3rem;
+}
