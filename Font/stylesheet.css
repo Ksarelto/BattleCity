@@ -1,0 +1,11 @@
+@font-face {
+    font-family: 'PerfectDOSVGA437';
+    src: url('PerfectDOSVGA437.eot');
+    src: url('PerfectDOSVGA437.eot?#iefix') format('embedded-opentype'),
+        url('PerfectDOSVGA437.woff2') format('woff2'),
+        url('PerfectDOSVGA437.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
