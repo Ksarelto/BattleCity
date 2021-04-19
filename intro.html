@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+	<title>Intro</title>
+	<link rel="stylesheet" href="Font/stylesheet.css">
+	<link rel="stylesheet" type="text/css" href="css/Test.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="stylesheet" href="css/media.css">
+</head>
+
+<body>
+
+	<!-- <div class="wrap">
+		<div class="container" id="mainPage">
+			<img src="image/battle-city.webp">
+			<form action="POST">
+				<input type="button" value="New Game">
+				<input id="openOpt" type="button" value="Options" onclick="showOptions()">
+				<input id='highScore' type="button" value="Highscores" onclick="goToHighscore()">
+				<input id='credits' type="button" value="Controls & Rules" onclick="goToControls()">
+				<a href="https://worldoftanks.ru/">Exit</a>
+			</form>
+
+		</div>
+	</div>
+
+	<div class="options" id="opt">
+		<form name="options">
+			<input id="exitOpt" type="button" name="exit" value="X" onclick="closeOptions()">
+			<div class="sound">
+				<label> Sound:</label>
+				<input type="checkbox" name="sound"><span>Off</span>
+			</div>
+			<div class="vibration">
+				<label> Vibration:</label>
+				<input type="checkbox" name="vibro"><span>Off</span>
+			</div>
+			<div class="fullscreen">
+				<label> Fullscreen:</label>
+				<input type="checkbox" name="fullScr"><span>On</span>
+			</div>
+		</form>
+	</div> -->
+
+	<script src="http://fe.it-academy.by/JQ/jquery.js"></script>
+	<script src="js/AJAX.js"></script>
+	<script src="js/SPA.js"></script>
+	<script src="js/joystick.js"></script>
+	<script src="js/map.js"></script>
+	<script src='js/audio.js'></script>
+	<script src="js/enemyTank.js"></script>
+	<script src="js/myTank.js"></script>
+	<script type="text/javascript">
+		'use strict'
+
+		readHighscore();
+
+		window.addEventListener('resize', changeWindowSize);
+
+		function checkSoundsAndVibration() {
+			var form = document.forms['sound-and-vibraion'];
+			var soundElem = form.elements['sound'];
+			var vibroElem = form.elements['vibro'];
+
+			if (soundElem.checked) {
+				anchor = false;
+			} else {
+				anchor = true;
+			}
+
+			if (vibroElem.checked) {
+				vibroControll = true;
+			} else {
+				vibroControll = false;
+			}
+		}
+
+
+		function showOptions() {
+			var options = document.getElementById('opt');
+			options.classList.add('visible');
+		}
+
+		function closeOptions() {
+			var options = document.getElementById('opt');
+			options.classList.remove('visible');
+		}
+
+	</script>
+</body>
+
+</html>
