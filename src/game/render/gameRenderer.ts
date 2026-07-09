@@ -13,31 +13,43 @@ export class GameRenderer {
   private worldContainer: Container | null = null;
   private initialized = false;
   private host: HTMLElement | null = null;
+  private initGeneration = 0;
 
   async init(container: HTMLElement): Promise<void> {
     if (this.initialized && this.host === container && this.app?.canvas.parentElement === container) {
       return;
     }
 
+    const generation = ++this.initGeneration;
     this.destroy();
-    this.host = container;
 
-    this.app = new Application();
-    await this.app.init({
+    this.host = container;
+    const app = new Application();
+
+    await app.init({
       width: FIELD_SIZE,
       height: FIELD_SIZE,
       backgroundColor: 0x1a1a1a,
       antialias: false,
       resolution: 1,
       autoStart: false,
+      resizeTo: undefined,
     });
 
-    this.app.canvas.style.display = 'block';
-    this.app.canvas.style.imageRendering = 'pixelated';
+    if (generation !== this.initGeneration) {
+      this.disposeApp(app);
+      return;
+    }
 
-    container.replaceChildren(this.app.canvas);
-    this.worldContainer = new Container();
-    this.app.stage.addChild(this.worldContainer);
+    app.canvas.style.display = 'block';
+    app.canvas.style.imageRendering = 'pixelated';
+
+    container.replaceChildren(app.canvas);
+    const worldContainer = new Container();
+    app.stage.addChild(worldContainer);
+
+    this.app = app;
+    this.worldContainer = worldContainer;
     this.initialized = true;
   }
 
@@ -178,10 +190,24 @@ export class GameRenderer {
   }
 
   destroy(): void {
-    this.app?.destroy(true, { children: true });
+    this.initGeneration += 1;
+    if (this.app) {
+      this.disposeApp(this.app);
+    }
     this.app = null;
     this.worldContainer = null;
     this.host = null;
     this.initialized = false;
+  }
+
+  private disposeApp(app: Application): void {
+    try {
+      app.canvas?.remove();
+      if (app.renderer) {
+        app.destroy(true, { children: true });
+      }
+    } catch (error) {
+      console.warn('Pixi application cleanup skipped:', error);
+    }
   }
 }

@@ -75,10 +75,10 @@ export function GameCanvas({
 
     return () => {
       active = false;
-      engineRef.current?.destroy();
+      const instance = engineRef.current ?? engine;
       engineRef.current = null;
-      engine?.destroy();
       engine = null;
+      instance?.destroy();
     };
   }, [stageNumber, twoPlayer, customLevel, difficulty, setHud]);
 

@@ -191,6 +191,7 @@ export class GameEngine {
   }
 
   destroy(): void {
+    if (this.destroyed) return;
     this.destroyed = true;
     this.running = false;
     cancelAnimationFrame(this.rafId);
