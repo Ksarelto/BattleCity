@@ -1,0 +1,57 @@
+{
+  "types": {
+    "basic": {
+      "id": "basic",
+      "name": "Basic Tank",
+      "points": 100,
+      "hp": 1,
+      "moveSpeed": 1.5,
+      "bulletSpeed": 3,
+      "fireCooldownFrames": 90,
+      "color": "#808080"
+    },
+    "fast": {
+      "id": "fast",
+      "name": "Fast Tank",
+      "points": 200,
+      "hp": 1,
+      "moveSpeed": 3,
+      "bulletSpeed": 4,
+      "fireCooldownFrames": 75,
+      "color": "#606060"
+    },
+    "power": {
+      "id": "power",
+      "name": "Power Tank",
+      "points": 300,
+      "hp": 1,
+      "moveSpeed": 2,
+      "bulletSpeed": 5,
+      "fireCooldownFrames": 45,
+      "color": "#a05050"
+    },
+    "armor": {
+      "id": "armor",
+      "name": "Armor Tank",
+      "points": 400,
+      "hp": 4,
+      "moveSpeed": 2,
+      "bulletSpeed": 4,
+      "fireCooldownFrames": 90,
+      "color": "#4a8a4a",
+      "hitColors": ["#4a8a4a", "#6aaa6a", "#888888", "#555555"]
+    }
+  },
+  "player": {
+    "moveSpeed": 2.5,
+    "bulletSpeed": 4,
+    "fireCooldownFrames": 60,
+    "maxBulletsByTier": [1, 1, 2, 2]
+  },
+  "spawn": {
+    "maxActive": 4,
+    "totalPerStage": 20,
+    "flashingIndices": [4, 11, 18],
+    "spawnAnimFrames": 60
+  }
+}

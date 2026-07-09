@@ -1,0 +1,58 @@
+{
+  "types": {
+    "grenade": {
+      "id": "grenade",
+      "name": "Grenade",
+      "points": 500,
+      "durationFrames": 0,
+      "effect": "destroyAllEnemies",
+      "countsForBonus": false
+    },
+    "helmet": {
+      "id": "helmet",
+      "name": "Helmet",
+      "points": 500,
+      "durationFrames": 600,
+      "effect": "invincibility"
+    },
+    "shovel": {
+      "id": "shovel",
+      "name": "Shovel",
+      "points": 500,
+      "durationFrames": 600,
+      "effect": "fortifyBase"
+    },
+    "star": {
+      "id": "star",
+      "name": "Star",
+      "points": 500,
+      "durationFrames": 0,
+      "effect": "upgradeTier",
+      "maxTier": 3
+    },
+    "tank": {
+      "id": "tank",
+      "name": "Tank",
+      "points": 500,
+      "durationFrames": 0,
+      "effect": "extraLife"
+    },
+    "timer": {
+      "id": "timer",
+      "name": "Timer",
+      "points": 500,
+      "durationFrames": 600,
+      "effect": "freezeEnemies"
+    }
+  },
+  "spawnPositions": [
+    { "col": 0, "row": 6 }, { "col": 6, "row": 6 }, { "col": 12, "row": 6 },
+    { "col": 0, "row": 0 }, { "col": 6, "row": 0 }, { "col": 12, "row": 0 },
+    { "col": 0, "row": 12 }, { "col": 12, "row": 12 },
+    { "col": 3, "row": 3 }, { "col": 9, "row": 3 },
+    { "col": 3, "row": 9 }, { "col": 9, "row": 9 },
+    { "col": 6, "row": 3 }, { "col": 6, "row": 9 },
+    { "col": 3, "row": 6 }, { "col": 9, "row": 6 }
+  ],
+  "dropOnFlashingDestroy": true
+}
