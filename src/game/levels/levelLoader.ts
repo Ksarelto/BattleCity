@@ -56,9 +56,19 @@ function addBaseWalls(grid: TileId[][]): void {
   }
 }
 
+function clearPlayerSpawnTiles(grid: TileId[][]): void {
+  for (const spawn of [
+    { col: 4, row: 12 },
+    { col: 8, row: 12 },
+  ]) {
+    grid[spawn.row]![spawn.col] = 'empty';
+  }
+}
+
 function generateStageLayout(stageId: number): TileId[][] {
   const grid = emptyGrid();
   addBaseWalls(grid);
+  clearPlayerSpawnTiles(grid);
 
   const seed = stageId * 7919;
   for (let i = 0; i < 8 + (stageId % 5); i++) {
@@ -131,6 +141,7 @@ export function getAllStageIds(): number[] {
 export function createBlankLevel(): LevelData {
   const grid = emptyGrid();
   addBaseWalls(grid);
+  clearPlayerSpawnTiles(grid);
   return {
     id: 0,
     name: 'Custom Level',

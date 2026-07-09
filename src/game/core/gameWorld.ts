@@ -100,6 +100,13 @@ export function createGameWorld(
     }
   }
 
+  for (const spawn of level.playerSpawns) {
+    grid[spawn.row]![spawn.col] = createTileCell('empty');
+  }
+  for (const spawn of level.spawnPoints) {
+    grid[spawn.row]![spawn.col] = createTileCell('empty');
+  }
+
   const tick = 0;
   const players = level.playerSpawns.map((s) => createPlayer(s.player, s, tick));
 
