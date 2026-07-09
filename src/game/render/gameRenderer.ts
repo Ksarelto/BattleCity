@@ -1,15 +1,6 @@
 import type { GameWorld } from '@/types/game';
-import {
-  FIELD_SIZE,
-  POWER_UP_COLORS,
-  TANK_COLORS,
-  TILE_COLORS,
-  TILE_SIZE,
-} from '@/game/core/constants';
-
-function hex(color: number): string {
-  return `#${color.toString(16).padStart(6, '0')}`;
-}
+import { FIELD_SIZE, TILE_SIZE } from '@/game/core/constants';
+import { spriteAtlas, tankVariantFor } from '@/game/render/spriteAtlas';
 
 export class GameRenderer {
   private canvas: HTMLCanvasElement | null = null;
@@ -18,6 +9,7 @@ export class GameRenderer {
 
   async init(container: HTMLElement): Promise<void> {
     this.destroy();
+    await spriteAtlas.load();
 
     const canvas = document.createElement('canvas');
     canvas.width = FIELD_SIZE;
@@ -57,14 +49,12 @@ export class GameRenderer {
 
         if (cell.id === 'brick' && cell.brick) {
           const q = cell.brick;
-          ctx.fillStyle = hex(TILE_COLORS.brick);
-          if (q.tl) ctx.fillRect(x, y, 8, 8);
-          if (q.tr) ctx.fillRect(x + 8, y, 8, 8);
-          if (q.bl) ctx.fillRect(x, y + 8, 8, 8);
-          if (q.br) ctx.fillRect(x + 8, y + 8, 8, 8);
-        } else if (cell.id !== 'empty') {
-          ctx.fillStyle = hex(TILE_COLORS[cell.id]);
-          ctx.fillRect(x, y, TILE_SIZE, TILE_SIZE);
+          if (q.tl) spriteAtlas.drawBrickQuadrant(ctx, x, y, 0, 0, TILE_SIZE);
+          if (q.tr) spriteAtlas.drawBrickQuadrant(ctx, x, y, 1, 0, TILE_SIZE);
+          if (q.bl) spriteAtlas.drawBrickQuadrant(ctx, x, y, 0, 1, TILE_SIZE);
+          if (q.br) spriteAtlas.drawBrickQuadrant(ctx, x, y, 1, 1, TILE_SIZE);
+        } else if (cell.id === 'steel' || cell.id === 'water' || cell.id === 'ice') {
+          spriteAtlas.drawTile(ctx, cell.id, x, y, TILE_SIZE);
         }
       }
     }
@@ -72,24 +62,32 @@ export class GameRenderer {
     for (let row = 0; row < 13; row++) {
       for (let col = 0; col < 13; col++) {
         if (world.overlayGrid[row]![col] === 'bush') {
-          ctx.fillStyle = hex(TILE_COLORS.bush);
-          ctx.globalAlpha = 0.7;
-          ctx.fillRect(col * TILE_SIZE, row * TILE_SIZE, TILE_SIZE, TILE_SIZE);
-          ctx.globalAlpha = 1;
+          spriteAtlas.drawTile(ctx, 'bush', col * TILE_SIZE, row * TILE_SIZE, TILE_SIZE);
         }
       }
     }
 
     if (world.baseIntact) {
       const { col, row } = world.basePosition;
-      ctx.fillStyle = '#ffaa00';
-      ctx.fillRect(col * TILE_SIZE, row * TILE_SIZE, TILE_SIZE * 2, TILE_SIZE * 2);
+      spriteAtlas.drawBase(ctx, col * TILE_SIZE, row * TILE_SIZE, TILE_SIZE * 2, true);
+    } else if (world.phase === 'gameOver') {
+      const { col, row } = world.basePosition;
+      spriteAtlas.drawBase(ctx, col * TILE_SIZE, row * TILE_SIZE, TILE_SIZE * 2, false);
     }
 
     for (const player of world.players) {
       if (player.spawnAnimRemaining > 0 && Math.floor(world.tick / 8) % 2 === 0) continue;
-      const color = player.team === 'player1' ? TANK_COLORS.player1 : TANK_COLORS.player2;
-      this.drawTank(ctx, player.position.x, player.position.y, color, player.direction);
+      const variant = tankVariantFor(player.team);
+      spriteAtlas.drawTank(
+        ctx,
+        variant,
+        player.direction,
+        Math.floor(world.tick / 8) % 2 as 0 | 1,
+        player.position.x,
+        player.position.y,
+        TILE_SIZE,
+        world.tick,
+      );
       if (player.invincibleUntil > world.tick && Math.floor(world.tick / 4) % 2 === 0) {
         ctx.strokeStyle = '#ffffff';
         ctx.lineWidth = 2;
@@ -99,10 +97,16 @@ export class GameRenderer {
 
     for (const enemy of world.enemies) {
       if (enemy.spawnAnimRemaining > 0 && Math.floor(world.tick / 8) % 2 === 0) continue;
-      const color = enemy.enemyType === 'armor'
-        ? TANK_COLORS.armor[Math.min(3, enemy.hp - 1)]!
-        : TANK_COLORS[enemy.enemyType ?? 'basic'];
-      this.drawTank(ctx, enemy.position.x, enemy.position.y, color, enemy.direction);
+      spriteAtlas.drawTank(
+        ctx,
+        tankVariantFor('enemy', enemy.enemyType),
+        enemy.direction,
+        Math.floor(world.tick / 8) % 2 as 0 | 1,
+        enemy.position.x,
+        enemy.position.y,
+        TILE_SIZE,
+        world.tick,
+      );
       if (enemy.isFlashing && Math.floor(world.tick / 4) % 2 === 0) {
         ctx.strokeStyle = '#ff0000';
         ctx.lineWidth = 2;
@@ -111,24 +115,28 @@ export class GameRenderer {
     }
 
     for (const bullet of world.bullets) {
-      ctx.fillStyle = '#ffffff';
-      ctx.fillRect(bullet.position.x, bullet.position.y, 4, 4);
+      spriteAtlas.drawBullet(ctx, bullet.position.x, bullet.position.y, 6);
     }
 
     for (const pu of world.powerUps) {
       if (!pu.active) continue;
-      ctx.fillStyle = hex(POWER_UP_COLORS[pu.type]);
-      ctx.fillRect(pu.position.x + 2, pu.position.y + 2, 12, 12);
+      if (Math.floor(world.tick / 8) % 2 === 0) continue;
+      spriteAtlas.drawPowerUp(ctx, pu.type, pu.position.x, pu.position.y, TILE_SIZE);
     }
 
     for (const exp of world.explosions) {
-      const alpha = exp.remaining / (exp.large ? 60 : 30);
-      ctx.globalAlpha = alpha;
-      ctx.fillStyle = '#ff6600';
-      ctx.beginPath();
-      ctx.arc(exp.position.x + 8, exp.position.y + 8, exp.large ? 16 : 8, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.globalAlpha = 1;
+      const total = exp.large ? 60 : 30;
+      const progress = 1 - exp.remaining / total;
+      const alpha = exp.remaining / total;
+      spriteAtlas.drawExplosion(
+        ctx,
+        exp.position.x - (exp.large ? 8 : 0),
+        exp.position.y - (exp.large ? 8 : 0),
+        exp.large ? 32 : 16,
+        exp.large,
+        progress,
+        alpha,
+      );
     }
 
     if (world.phase === 'countdown') {
@@ -146,23 +154,6 @@ export class GameRenderer {
       ctx.font = '16px monospace';
       ctx.fillText('PAUSED', FIELD_SIZE / 2 - 30, FIELD_SIZE / 2);
     }
-  }
-
-  private drawTank(
-    ctx: CanvasRenderingContext2D,
-    x: number,
-    y: number,
-    color: number,
-    direction: string,
-  ): void {
-    ctx.fillStyle = hex(color);
-    ctx.fillRect(x + 2, y + 2, 12, 12);
-    const cx = x + 8;
-    const cy = y + 8;
-    if (direction === 'up') ctx.fillRect(cx - 2, y, 4, 6);
-    if (direction === 'down') ctx.fillRect(cx - 2, y + 10, 4, 6);
-    if (direction === 'left') ctx.fillRect(x, cy - 2, 6, 4);
-    if (direction === 'right') ctx.fillRect(x + 10, cy - 2, 6, 4);
   }
 
   destroy(): void {

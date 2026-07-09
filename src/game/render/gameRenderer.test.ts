@@ -4,14 +4,28 @@ import { createLevel } from '@/game/levels/levelLoader';
 import { GameRenderer } from '@/game/render/gameRenderer';
 import { FIELD_SIZE } from '@/game/core/constants';
 
+vi.mock('@/game/render/spriteAtlas', () => ({
+  spriteAtlas: {
+    load: vi.fn().mockResolvedValue(undefined),
+    drawTile: vi.fn(),
+    drawBrickQuadrant: vi.fn(),
+    drawBase: vi.fn(),
+    drawTank: vi.fn(),
+    drawBullet: vi.fn(),
+    drawPowerUp: vi.fn(),
+    drawExplosion: vi.fn(),
+  },
+  tankVariantFor: vi.fn(() => 'player1'),
+}));
+
 function mockCanvasContext(): CanvasRenderingContext2D {
   return {
     fillRect: vi.fn(),
     fillText: vi.fn(),
     strokeRect: vi.fn(),
-    beginPath: vi.fn(),
-    arc: vi.fn(),
-    fill: vi.fn(),
+    drawImage: vi.fn(),
+    save: vi.fn(),
+    restore: vi.fn(),
     fillStyle: '',
     strokeStyle: '',
     lineWidth: 1,
