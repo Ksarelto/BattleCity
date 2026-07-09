@@ -41,7 +41,7 @@ export function GameCanvas({
 
     const start = async () => {
       try {
-        engine = new GameEngine({
+        const instance = new GameEngine({
           container,
           stageNumber,
           twoPlayer,
@@ -51,21 +51,22 @@ export function GameCanvas({
           onGameOver: () => onGameOverRef.current?.(),
           onStageClear: () => onStageClearRef.current?.(),
         });
+        engine = instance;
 
         if (!active) {
-          engine.destroy();
+          instance.destroy();
           return;
         }
 
-        await engine.start();
+        await instance.start();
 
         if (!active) {
-          engine.destroy();
+          instance.destroy();
           return;
         }
 
-        engineRef.current = engine;
-        onEngineReadyRef.current?.(engine);
+        engineRef.current = instance;
+        onEngineReadyRef.current?.(instance);
       } catch (error) {
         console.error('Failed to start Battle City engine:', error);
       }
