@@ -7,27 +7,35 @@ import {
   TILE_COLORS,
   TILE_SIZE,
 } from '@/game/core/constants';
-import { brickIntact } from '@/game/core/gameWorld';
 
 export class GameRenderer {
   private app: Application | null = null;
   private worldContainer: Container | null = null;
   private initialized = false;
+  private host: HTMLElement | null = null;
 
   async init(container: HTMLElement): Promise<void> {
-    if (this.initialized) return;
+    if (this.initialized && this.host === container && this.app?.canvas.parentElement === container) {
+      return;
+    }
+
+    this.destroy();
+    this.host = container;
 
     this.app = new Application();
     await this.app.init({
       width: FIELD_SIZE,
       height: FIELD_SIZE,
-      backgroundColor: 0x000000,
+      backgroundColor: 0x1a1a1a,
       antialias: false,
       resolution: 1,
+      autoStart: false,
     });
 
-    container.innerHTML = '';
-    container.appendChild(this.app.canvas);
+    this.app.canvas.style.display = 'block';
+    this.app.canvas.style.imageRendering = 'pixelated';
+
+    container.replaceChildren(this.app.canvas);
     this.worldContainer = new Container();
     this.app.stage.addChild(this.worldContainer);
     this.initialized = true;
@@ -35,6 +43,10 @@ export class GameRenderer {
 
   render(world: GameWorld): void {
     if (!this.app || !this.worldContainer) return;
+
+    if (this.host && this.app.canvas.parentElement !== this.host) {
+      this.host.replaceChildren(this.app.canvas);
+    }
 
     this.worldContainer.removeChildren();
 
@@ -50,12 +62,12 @@ export class GameRenderer {
         if (cell.id === 'brick' && cell.brick) {
           const q = cell.brick;
           const c = TILE_COLORS.brick;
-          if (q.tl) g.rect(x, y, 8, 8).fill(c);
-          if (q.tr) g.rect(x + 8, y, 8, 8).fill(c);
-          if (q.bl) g.rect(x, y + 8, 8, 8).fill(c);
-          if (q.br) g.rect(x + 8, y + 8, 8, 8).fill(c);
+          if (q.tl) g.rect(x, y, 8, 8).fill({ color: c });
+          if (q.tr) g.rect(x + 8, y, 8, 8).fill({ color: c });
+          if (q.bl) g.rect(x, y + 8, 8, 8).fill({ color: c });
+          if (q.br) g.rect(x + 8, y + 8, 8, 8).fill({ color: c });
         } else {
-          g.rect(x, y, TILE_SIZE, TILE_SIZE).fill(TILE_COLORS[cell.id]);
+          g.rect(x, y, TILE_SIZE, TILE_SIZE).fill({ color: TILE_COLORS[cell.id] });
         }
         this.worldContainer.addChild(g);
       }
@@ -75,12 +87,11 @@ export class GameRenderer {
     if (world.baseIntact) {
       const g = new Graphics();
       const { col, row } = world.basePosition;
-      g.rect(col * TILE_SIZE, row * TILE_SIZE, TILE_SIZE * 2, TILE_SIZE * 2).fill(0xffaa00);
+      g.rect(col * TILE_SIZE, row * TILE_SIZE, TILE_SIZE * 2, TILE_SIZE * 2).fill({ color: 0xffaa00 });
       this.worldContainer.addChild(g);
     }
 
-    for (let i = 0; i < world.players.length; i++) {
-      const player = world.players[i]!;
+    for (const player of world.players) {
       if (player.spawnAnimRemaining > 0 && Math.floor(world.tick / 8) % 2 === 0) continue;
       const color = player.team === 'player1' ? TANK_COLORS.player1 : TANK_COLORS.player2;
       this.drawTank(player.position.x, player.position.y, color, player.direction);
@@ -108,14 +119,14 @@ export class GameRenderer {
 
     for (const bullet of world.bullets) {
       const g = new Graphics();
-      g.rect(bullet.position.x, bullet.position.y, 4, 4).fill(0xffffff);
+      g.rect(bullet.position.x, bullet.position.y, 4, 4).fill({ color: 0xffffff });
       this.worldContainer.addChild(g);
     }
 
     for (const pu of world.powerUps) {
       if (!pu.active) continue;
       const g = new Graphics();
-      g.rect(pu.position.x + 2, pu.position.y + 2, 12, 12).fill(POWER_UP_COLORS[pu.type]);
+      g.rect(pu.position.x + 2, pu.position.y + 2, 12, 12).fill({ color: POWER_UP_COLORS[pu.type] });
       this.worldContainer.addChild(g);
     }
 
@@ -127,25 +138,42 @@ export class GameRenderer {
       this.worldContainer.addChild(g);
     }
 
+    if (world.phase === 'countdown') {
+      const overlay = new Graphics();
+      overlay.rect(0, 0, FIELD_SIZE, FIELD_SIZE).fill({ color: 0x000000, alpha: 0.35 });
+      const text = new Text({
+        text: 'GET READY',
+        style: { fill: 0xffffff, fontSize: 14, fontFamily: 'monospace' },
+      });
+      text.x = FIELD_SIZE / 2 - 40;
+      text.y = FIELD_SIZE / 2 - 8;
+      this.worldContainer.addChild(overlay, text);
+    }
+
     if (world.phase === 'paused') {
       const overlay = new Graphics();
       overlay.rect(0, 0, FIELD_SIZE, FIELD_SIZE).fill({ color: 0x000000, alpha: 0.5 });
-      const text = new Text({ text: 'PAUSED', style: { fill: 0xffffff, fontSize: 16 } });
+      const text = new Text({
+        text: 'PAUSED',
+        style: { fill: 0xffffff, fontSize: 16, fontFamily: 'monospace' },
+      });
       text.x = FIELD_SIZE / 2 - 30;
       text.y = FIELD_SIZE / 2 - 8;
       this.worldContainer.addChild(overlay, text);
     }
+
+    this.app.render();
   }
 
   private drawTank(x: number, y: number, color: number, direction: string): void {
     const g = new Graphics();
-    g.rect(x + 2, y + 2, 12, 12).fill(color);
+    g.rect(x + 2, y + 2, 12, 12).fill({ color });
     const cx = x + 8;
     const cy = y + 8;
-    if (direction === 'up') g.rect(cx - 2, y, 4, 6).fill(color);
-    if (direction === 'down') g.rect(cx - 2, y + 10, 4, 6).fill(color);
-    if (direction === 'left') g.rect(x, cy - 2, 6, 4).fill(color);
-    if (direction === 'right') g.rect(x + 10, cy - 2, 6, 4).fill(color);
+    if (direction === 'up') g.rect(cx - 2, y, 4, 6).fill({ color });
+    if (direction === 'down') g.rect(cx - 2, y + 10, 4, 6).fill({ color });
+    if (direction === 'left') g.rect(x, cy - 2, 6, 4).fill({ color });
+    if (direction === 'right') g.rect(x + 10, cy - 2, 6, 4).fill({ color });
     this.worldContainer!.addChild(g);
   }
 
@@ -153,11 +181,7 @@ export class GameRenderer {
     this.app?.destroy(true, { children: true });
     this.app = null;
     this.worldContainer = null;
+    this.host = null;
     this.initialized = false;
   }
-}
-
-export function isBrickCellIntact(cell: { id: string; brick?: { tl: boolean; tr: boolean; bl: boolean; br: boolean } }): boolean {
-  if (cell.id !== 'brick' || !cell.brick) return cell.id === 'brick';
-  return brickIntact(cell.brick);
 }

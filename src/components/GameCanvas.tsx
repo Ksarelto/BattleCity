@@ -23,43 +23,64 @@ export function GameCanvas({
   const containerRef = useRef<HTMLDivElement>(null);
   const engineRef = useRef<GameEngine | null>(null);
   const setHud = useGameStore((s) => s.setHud);
-  const settings = useGameStore((s) => s.settings);
+  const difficulty = useGameStore((s) => s.settings.difficulty);
+
+  const onGameOverRef = useRef(onGameOver);
+  const onStageClearRef = useRef(onStageClear);
+  const onEngineReadyRef = useRef(onEngineReady);
+  onGameOverRef.current = onGameOver;
+  onStageClearRef.current = onStageClear;
+  onEngineReadyRef.current = onEngineReady;
 
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
 
+    let active = true;
     let engine: GameEngine | null = null;
-    let mounted = true;
 
-    const init = async () => {
-      engine = new GameEngine({
-        container,
-        stageNumber,
-        twoPlayer,
-        customLevel,
-        difficulty: settings.difficulty,
-        onHudUpdate: setHud,
-        onGameOver: () => onGameOver?.(),
-        onStageClear: () => onStageClear?.(),
-      });
-      if (!mounted) {
-        engine.destroy();
-        return;
+    const start = async () => {
+      try {
+        engine = new GameEngine({
+          container,
+          stageNumber,
+          twoPlayer,
+          customLevel,
+          difficulty,
+          onHudUpdate: setHud,
+          onGameOver: () => onGameOverRef.current?.(),
+          onStageClear: () => onStageClearRef.current?.(),
+        });
+
+        if (!active) {
+          engine.destroy();
+          return;
+        }
+
+        await engine.start();
+
+        if (!active) {
+          engine.destroy();
+          return;
+        }
+
+        engineRef.current = engine;
+        onEngineReadyRef.current?.(engine);
+      } catch (error) {
+        console.error('Failed to start Battle City engine:', error);
       }
-      engineRef.current = engine;
-      onEngineReady?.(engine);
-      await engine.start();
     };
 
-    init();
+    void start();
 
     return () => {
-      mounted = false;
-      engine?.destroy();
+      active = false;
+      engineRef.current?.destroy();
       engineRef.current = null;
+      engine?.destroy();
+      engine = null;
     };
-  }, [stageNumber, twoPlayer, customLevel, settings.difficulty, setHud, onGameOver, onStageClear, onEngineReady]);
+  }, [stageNumber, twoPlayer, customLevel, difficulty, setHud]);
 
   return (
     <div className="game-canvas-wrapper">

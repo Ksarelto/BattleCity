@@ -56,6 +56,8 @@ export class GameEngine {
 
   async start(): Promise<void> {
     await this.renderer.init(this.container);
+    this.emitHud();
+    this.renderer.render(this.world);
     this.running = true;
     this.loop(performance.now());
   }
