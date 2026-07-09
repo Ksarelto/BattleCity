@@ -67,7 +67,9 @@ export function canTankMoveTo(
     if (cell && cellBlocksTank(cell)) return false;
   }
 
-  const allTanks = [...world.players, ...world.enemies].filter((t) => t.id !== ignoreId);
+  const allTanks = [...world.players, ...world.enemies].filter(
+    (t) => t.id !== ignoreId && t.id !== tank.id,
+  );
   for (const other of allTanks) {
     if (other.spawnAnimRemaining > 0 && other.id !== tank.id) continue;
     if (rectsOverlap(bounds, getTankBounds(other.position))) return false;

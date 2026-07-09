@@ -4,7 +4,6 @@ import { brickIntact, countBrickQuadrants, createGameWorld, createTileCell } fro
 import { damageBrickTile, damageSteelTile } from '@/game/systems/tileDamageSystem';
 import { buildEnemyRoster, checkStageClear } from '@/game/systems/spawnSystem';
 import { createLevel, validateLevel } from '@/game/levels/levelLoader';
-import type { GameWorld } from '@/types/game';
 
 describe('constants', () => {
   it('identifies flashing spawn indices', () => {
@@ -85,21 +84,5 @@ describe('brick helpers', () => {
     expect(brickIntact(q)).toBe(true);
     q.tl = false;
     expect(countBrickQuadrants(q)).toBe(3);
-  });
-});
-
-describe('extra life', () => {
-  it('awards once at 20000', () => {
-    const level = createLevel(1);
-    const world = createGameWorld(level) as GameWorld;
-    world.score = 20000;
-    world.extraLifeAwarded = false;
-    world.lives = 3;
-    if (!world.extraLifeAwarded && world.score >= 20000) {
-      world.lives += 1;
-      world.extraLifeAwarded = true;
-    }
-    expect(world.lives).toBe(4);
-    expect(world.extraLifeAwarded).toBe(true);
   });
 });

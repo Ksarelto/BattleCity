@@ -2,8 +2,9 @@ import { useCallback, useRef, useState } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { GameCanvas } from '@/components/GameCanvas';
 import { GameHud } from '@/components/GameHud';
-import { TouchControls, useTouchEnabled } from '@/components/TouchControls';
-import { loadPlaytestLevel } from '@/app/EditorScreen';
+import { TouchControls } from '@/components/TouchControls';
+import { loadPlaytestLevel } from '@/app/playtestLevel';
+import { useTouchEnabled } from '@/hooks/useTouchEnabled';
 import type { GameEngine } from '@/game/core/gameEngine';
 import { useGameStore } from '@/store/gameStore';
 

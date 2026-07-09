@@ -1,6 +1,7 @@
 import { useCallback, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import type { LevelData, TileId } from '@/types/game';
+import { savePlaytestLevel } from '@/app/playtestLevel';
 import { createBlankLevel, parseCustomLevel } from '@/game/levels/levelLoader';
 import { TILE_COLORS } from '@/game/core/constants';
 
@@ -60,7 +61,7 @@ export function EditorScreen() {
   };
 
   const playTest = useCallback(() => {
-    sessionStorage.setItem('battlecity-playtest', JSON.stringify(level));
+    savePlaytestLevel(level);
     navigate('/game?playtest=1');
   }, [level, navigate]);
 
@@ -104,14 +105,4 @@ export function EditorScreen() {
       </div>
     </div>
   );
-}
-
-export function loadPlaytestLevel(): LevelData | null {
-  const raw = sessionStorage.getItem('battlecity-playtest');
-  if (!raw) return null;
-  try {
-    return parseCustomLevel(raw);
-  } catch {
-    return null;
-  }
 }
