@@ -18,7 +18,6 @@ export default defineConfig({
       include: ['src/game/**/*.ts', 'src/store/**/*.ts', 'src/app/playtestLevel.ts'],
       exclude: [
         '**/*.test.ts',
-        '**/gameRenderer.ts',
         '**/gameEngine.ts',
         '**/audioManager.ts',
         '**/inputManager.ts',

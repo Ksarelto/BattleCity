@@ -15,10 +15,8 @@ export class GameRenderer {
   private canvas: HTMLCanvasElement | null = null;
   private ctx: CanvasRenderingContext2D | null = null;
   private host: HTMLElement | null = null;
-  private initGeneration = 0;
 
   async init(container: HTMLElement): Promise<void> {
-    const generation = ++this.initGeneration;
     this.destroy();
 
     const canvas = document.createElement('canvas');
@@ -26,8 +24,6 @@ export class GameRenderer {
     canvas.height = FIELD_SIZE;
     canvas.style.display = 'block';
     canvas.style.imageRendering = 'pixelated';
-
-    if (generation !== this.initGeneration) return;
 
     container.replaceChildren(canvas);
     const ctx = canvas.getContext('2d');
@@ -170,10 +166,13 @@ export class GameRenderer {
   }
 
   destroy(): void {
-    this.initGeneration += 1;
     this.canvas?.remove();
     this.canvas = null;
     this.ctx = null;
     this.host = null;
+  }
+
+  getCanvas(): HTMLCanvasElement | null {
+    return this.canvas;
   }
 }
