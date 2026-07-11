@@ -1,6 +1,6 @@
 # Battle City
 
-NES-faithful **Battle City** tank game built with **React 19**, **TypeScript**, and **PixiJS v8**.
+NES-faithful **Battle City** tank game built with **React 19**, **TypeScript**, and **Canvas 2D** sprites.
 
 ## Features
 
@@ -16,12 +16,24 @@ NES-faithful **Battle City** tank game built with **React 19**, **TypeScript**, 
 
 ## Quick Start
 
+**Windows (local project folder):**
+
+```powershell
+cd D:\Projects\Battle_City_React
+npm install
+npm run dev
+```
+
+**Linux / macOS / Cloud VM (`/workspace`):**
+
 ```bash
 npm install
 npm run dev
 ```
 
 Open http://localhost:5173
+
+See [LOCAL_SETUP.md](LOCAL_SETUP.md) if you need to clone or merge into `D:\Projects\Battle_City_React`.
 
 ## Scripts
 
@@ -61,7 +73,7 @@ Full game design documentation lives in [`.spec/`](.spec/README.md).
 ## Tech Stack
 
 - Vite + React + TypeScript
-- PixiJS (rendering)
+- Canvas 2D + sprite sheets (rendering)
 - Zustand (UI state)
 - Vitest (tests)
 
