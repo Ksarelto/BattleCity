@@ -1,0 +1,14 @@
+.game-screen {
+  justify-content: flex-start;
+  padding-top: 0.5rem;
+}
+
+.game-area {
+  border: 4px solid var(--accent);
+  image-rendering: pixelated;
+}
+
+.game-controls {
+  display: flex;
+  gap: 1rem;
+}

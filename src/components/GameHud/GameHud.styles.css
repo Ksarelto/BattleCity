@@ -1,0 +1,22 @@
+.game-hud {
+  width: 100%;
+  max-width: var(--field-size);
+  font-size: clamp(0.45rem, 0.35vw + 0.35rem, 0.7rem);
+}
+
+.hud-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.25rem;
+}
+
+.hud-banner {
+  text-align: center;
+  color: var(--accent);
+  font-size: clamp(0.6rem, 0.5vw + 0.45rem, 0.95rem);
+  margin-top: 0.5rem;
+}
+
+.hud-banner.game-over {
+  color: #ff4444;
+}

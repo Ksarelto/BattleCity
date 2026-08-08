@@ -1,0 +1,49 @@
+.editor-screen {
+  max-width: 100vw;
+}
+
+.editor-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.tile-btn {
+  font-family: inherit;
+  font-size: 0.4rem;
+  padding: 0.5rem;
+  border: 2px solid #fff;
+  cursor: pointer;
+  color: #fff;
+}
+
+.tile-btn.active {
+  border-color: var(--accent);
+  box-shadow: 0 0 8px var(--accent);
+}
+
+.editor-grid {
+  display: grid;
+  grid-template-columns: repeat(35, minmax(10px, 14px));
+  gap: 1px;
+  background: #333;
+  padding: 2px;
+  max-width: 100%;
+}
+
+.editor-cell {
+  width: 100%;
+  aspect-ratio: 1;
+  min-height: 12px;
+  border: none;
+  cursor: crosshair;
+  padding: 0;
+}
+
+.editor-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+}

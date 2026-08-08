@@ -1,9 +1,9 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { EditorScreen } from '@/app/EditorScreen';
-import { GameScreen } from '@/app/GameScreen';
-import { HighScoresScreen } from '@/app/HighScoresScreen';
-import { MainMenu } from '@/app/MainMenu';
-import { SettingsScreen } from '@/app/SettingsScreen';
+import { EditorScreen } from '@/pages/EditorScreen';
+import { GameScreen } from '@/pages/GameScreen';
+import { HighScoresScreen } from '@/pages/HighScoresScreen';
+import { MainMenu } from '@/pages/MainMenu';
+import { SettingsScreen } from '@/pages/SettingsScreen';
 
 export function App() {
   return (
