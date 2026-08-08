@@ -9,12 +9,12 @@
     "custom": { "type": "boolean", "default": false },
     "grid": {
       "type": "array",
-      "minItems": 13,
-      "maxItems": 13,
+      "minItems": 20,
+      "maxItems": 20,
       "items": {
         "type": "array",
-        "minItems": 13,
-        "maxItems": 13,
+        "minItems": 35,
+        "maxItems": 35,
         "items": {
           "type": "string",
           "enum": ["empty", "brick", "steel", "water", "ice", "bush"]
@@ -38,8 +38,8 @@
         "type": "object",
         "required": ["col", "row"],
         "properties": {
-          "col": { "type": "integer", "minimum": 0, "maximum": 12 },
-          "row": { "type": "integer", "minimum": 0, "maximum": 12 }
+          "col": { "type": "integer", "minimum": 0, "maximum": 34 },
+          "row": { "type": "integer", "minimum": 0, "maximum": 19 }
         }
       }
     },
@@ -47,8 +47,8 @@
       "type": "object",
       "required": ["col", "row"],
       "properties": {
-        "col": { "type": "integer", "minimum": 0, "maximum": 11 },
-        "row": { "type": "integer", "minimum": 0, "maximum": 11 }
+        "col": { "type": "integer", "minimum": 0, "maximum": 33 },
+        "row": { "type": "integer", "minimum": 0, "maximum": 18 }
       }
     },
     "playerSpawns": {

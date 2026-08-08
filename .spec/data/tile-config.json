@@ -1,6 +1,7 @@
 {
-  "tileSize": 16,
-  "gridSize": 13,
+  "tileSize": 40,
+  "gridCols": 35,
+  "gridRows": 20,
   "tiles": {
     "empty": {
       "id": "empty",

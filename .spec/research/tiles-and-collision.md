@@ -53,4 +53,4 @@ Top row, tile centers:
 - Center: (6, 0)
 - Right: (12, 0)
 
-Player spawn: bottom center area (columns 4–8, row 12)
+Player spawn: bottom area (P1 col 3, P2 col 8, row 12)

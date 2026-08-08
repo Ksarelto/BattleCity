@@ -2,18 +2,18 @@
 
 ## Grid & Coordinates
 
-- Playfield: **13 columns × 13 rows** of tiles
-- Tile size: **16×16 pixels** → native resolution **208×208**
-- Display: integer-scaled (2×, 3×, 4×) for crisp pixels
-- Tank occupies roughly one tile (16×16 AABB, slightly smaller hitbox for fairness)
+- Playfield: **35 columns × 20 rows** of tiles
+- Tile size: **40×40 pixels** → native resolution **1400×800** (matches CSS canvas; tank art draws 1:1)
+- Display: integer-scaled on larger screens
+- Tank occupies roughly one tile (40×40 draw; 36×36 hitbox centered)
 - Sub-tile positions use floats for smooth movement; collision snaps to grid edges
 
 ## Movement
 
 - 4 cardinal directions only (no diagonals)
 - Tank rotates instantly to face movement direction
-- Player default speed: ~2 px/frame at 60 Hz (tunable)
-- Enemies vary by type (see enemy-config.json)
+- Player default speed: **5** px/frame at 60 Hz (see `src/utils/constants.ts`; ≈2× classic NES for 40px tiles)
+- Enemies vary by type (see enemy-config.json / `ENEMY_CONFIG`)
 - Tanks cannot pass: brick, steel, water, other tanks (same cell)
 - Tanks can pass: empty, ice, bush (underneath)
 
@@ -25,7 +25,7 @@
 
 ## Bullets
 
-- Travel in tank's facing direction at fixed speed (~4 px/frame)
+- Travel in tank's facing direction at fixed speed (player **8** px/frame; enemies per `ENEMY_CONFIG`)
 - Max active bullets per tank depends on star level (1 default, 2 at tier 2+)
 - Cannot fire again until bullet hits something or leaves playfield
 - Bullets cancel each other on contact (both destroyed)
