@@ -1,0 +1,53 @@
+{
+  "tileSize": 16,
+  "gridSize": 13,
+  "tiles": {
+    "empty": {
+      "id": "empty",
+      "blocksTank": false,
+      "blocksBullet": false,
+      "destructible": false,
+      "color": "#000000"
+    },
+    "brick": {
+      "id": "brick",
+      "blocksTank": true,
+      "blocksBullet": false,
+      "destructible": true,
+      "quadrants": 4,
+      "color": "#b85c38"
+    },
+    "steel": {
+      "id": "steel",
+      "blocksTank": true,
+      "blocksBullet": true,
+      "destructible": true,
+      "minTierToDamage": 3,
+      "hitsToDestroy": 2,
+      "color": "#aaaaaa"
+    },
+    "water": {
+      "id": "water",
+      "blocksTank": true,
+      "blocksBullet": false,
+      "destructible": false,
+      "color": "#0066cc"
+    },
+    "ice": {
+      "id": "ice",
+      "blocksTank": false,
+      "blocksBullet": false,
+      "destructible": false,
+      "slideDistance": 16,
+      "color": "#cceeff"
+    },
+    "bush": {
+      "id": "bush",
+      "blocksTank": false,
+      "blocksBullet": false,
+      "destructible": false,
+      "isOverlay": true,
+      "color": "#228822"
+    }
+  }
+}
