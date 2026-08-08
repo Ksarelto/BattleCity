@@ -1,6 +1,15 @@
+import type { GameSettings, HudSnapshot } from '@/models';
+import { Difficulty, GamePhase } from '@/enums';
+import {
+  DEFAULT_MUSIC_VOLUME,
+  DEFAULT_SFX_VOLUME,
+  ENEMIES_PER_STAGE,
+  INITIAL_LIVES,
+  MAX_HIGH_SCORES,
+  STORAGE_KEYS,
+} from '@/utils/constants';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import type { Difficulty, GamePhase, GameSettings, HudSnapshot } from '@/types/game';
 
 interface GameStore {
   hud: HudSnapshot;
@@ -13,10 +22,10 @@ interface GameStore {
 
 const defaultHud: HudSnapshot = {
   score: 0,
-  lives: 3,
-  enemiesRemaining: 20,
+  lives: INITIAL_LIVES,
+  enemiesRemaining: ENEMIES_PER_STAGE,
   stageNumber: 1,
-  phase: 'countdown' as GamePhase,
+  phase: GamePhase.countdown,
   playerKills: [0, 0],
   starLevels: [0, 0],
   effects: [],
@@ -27,9 +36,9 @@ export const useGameStore = create<GameStore>()(
     (set) => ({
       hud: defaultHud,
       settings: {
-        difficulty: 'normal' as Difficulty,
-        sfxVolume: 0.7,
-        musicVolume: 0.5,
+        difficulty: Difficulty.normal,
+        sfxVolume: DEFAULT_SFX_VOLUME,
+        musicVolume: DEFAULT_MUSIC_VOLUME,
         muted: false,
       },
       highScores: [],
@@ -43,11 +52,11 @@ export const useGameStore = create<GameStore>()(
             { ...entry, date: new Date().toISOString() },
           ]
             .sort((a, b) => b.score - a.score)
-            .slice(0, 10),
+            .slice(0, MAX_HIGH_SCORES),
         })),
     }),
     {
-      name: 'battlecity-storage',
+      name: STORAGE_KEYS.settings,
       partialize: (s) => ({
         settings: s.settings,
         highScores: s.highScores,

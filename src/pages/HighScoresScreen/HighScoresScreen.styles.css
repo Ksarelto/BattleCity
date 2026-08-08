@@ -1,0 +1,10 @@
+.scores-table {
+  font-size: 0.5rem;
+  border-collapse: collapse;
+}
+
+.scores-table th,
+.scores-table td {
+  padding: 0.5rem;
+  border: 1px solid var(--accent);
+}

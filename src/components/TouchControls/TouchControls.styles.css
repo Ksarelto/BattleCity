@@ -1,0 +1,38 @@
+.touch-controls {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: var(--field-size);
+  padding: 1rem 0;
+}
+.dpad {
+  display: grid;
+  grid-template-columns: repeat(3, 48px);
+  grid-template-rows: repeat(3, 48px);
+  gap: 4px;
+}
+
+.dpad button {
+  font-size: 1rem;
+  background: var(--panel);
+  border: 2px solid var(--accent);
+  color: var(--fg);
+  border-radius: 4px;
+}
+
+.dpad-up { grid-column: 2; grid-row: 1; }
+.dpad-left { grid-column: 1; grid-row: 2; }
+.dpad-right { grid-column: 3; grid-row: 2; }
+.dpad-down { grid-column: 2; grid-row: 3; }
+
+.fire-btn {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: none;
+  color: #fff;
+  font-family: inherit;
+  font-size: 0.5rem;
+  align-self: center;
+}

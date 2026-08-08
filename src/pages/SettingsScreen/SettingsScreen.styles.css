@@ -1,0 +1,12 @@
+.settings-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  font-size: 0.55rem;
+}
+
+.settings-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
