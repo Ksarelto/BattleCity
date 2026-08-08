@@ -2,23 +2,23 @@
 
 ## Keyboard — Player 1
 
-| Action | Key |
-|--------|-----|
-| Up | Arrow Up / W |
-| Down | Arrow Down / S |
-| Left | Arrow Left / A |
-| Right | Arrow Right / D |
-| Fire | Space / Z |
-| Pause | Escape / P |
+| Action | Key (1P) | Key (2P) |
+|--------|----------|----------|
+| Up | Arrow Up / W | W |
+| Down | Arrow Down / S | S |
+| Left | Arrow Left / A | A |
+| Right | Arrow Right / D | D |
+| Fire | Space / Z | Space / Z |
+| Pause | Escape / P | Escape / P |
 
 ## Keyboard — Player 2
 
 | Action | Key |
 |--------|-----|
-| Up | I |
-| Down | K |
-| Left | J |
-| Right | L |
+| Up | Arrow Up / I |
+| Down | Arrow Down / K |
+| Left | Arrow Left / J |
+| Right | Arrow Right / L |
 | Fire | Enter / H |
 
 ## Gamepad

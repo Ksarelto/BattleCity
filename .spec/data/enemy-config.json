@@ -5,8 +5,8 @@
       "name": "Basic Tank",
       "points": 100,
       "hp": 1,
-      "moveSpeed": 1.5,
-      "bulletSpeed": 3,
+      "moveSpeed": 3,
+      "bulletSpeed": 6,
       "fireCooldownFrames": 90,
       "color": "#808080"
     },
@@ -15,8 +15,8 @@
       "name": "Fast Tank",
       "points": 200,
       "hp": 1,
-      "moveSpeed": 3,
-      "bulletSpeed": 4,
+      "moveSpeed": 6,
+      "bulletSpeed": 8,
       "fireCooldownFrames": 75,
       "color": "#606060"
     },
@@ -25,8 +25,8 @@
       "name": "Power Tank",
       "points": 300,
       "hp": 1,
-      "moveSpeed": 2,
-      "bulletSpeed": 5,
+      "moveSpeed": 4,
+      "bulletSpeed": 10,
       "fireCooldownFrames": 45,
       "color": "#a05050"
     },
@@ -35,16 +35,16 @@
       "name": "Armor Tank",
       "points": 400,
       "hp": 4,
-      "moveSpeed": 2,
-      "bulletSpeed": 4,
+      "moveSpeed": 4,
+      "bulletSpeed": 8,
       "fireCooldownFrames": 90,
       "color": "#4a8a4a",
       "hitColors": ["#4a8a4a", "#6aaa6a", "#888888", "#555555"]
     }
   },
   "player": {
-    "moveSpeed": 2.5,
-    "bulletSpeed": 4,
+    "moveSpeed": 5,
+    "bulletSpeed": 8,
     "fireCooldownFrames": 60,
     "maxBulletsByTier": [1, 1, 2, 2]
   },
@@ -52,6 +52,8 @@
     "maxActive": 4,
     "totalPerStage": 20,
     "flashingIndices": [4, 11, 18],
-    "spawnAnimFrames": 60
-  }
+    "spawnAnimFrames": 60,
+    "spawnIntervalFrames": 90
+  },
+  "notes": "Speeds match src/utils/constants.ts for the 40px tile field (≈2× classic NES px/frame)."
 }

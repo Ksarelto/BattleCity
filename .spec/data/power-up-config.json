@@ -46,13 +46,14 @@
     }
   },
   "spawnPositions": [
-    { "col": 0, "row": 6 }, { "col": 6, "row": 6 }, { "col": 12, "row": 6 },
-    { "col": 0, "row": 0 }, { "col": 6, "row": 0 }, { "col": 12, "row": 0 },
-    { "col": 0, "row": 12 }, { "col": 12, "row": 12 },
-    { "col": 3, "row": 3 }, { "col": 9, "row": 3 },
-    { "col": 3, "row": 9 }, { "col": 9, "row": 9 },
-    { "col": 6, "row": 3 }, { "col": 6, "row": 9 },
-    { "col": 3, "row": 6 }, { "col": 9, "row": 6 }
+    { "col": 0, "row": 9 }, { "col": 17, "row": 9 }, { "col": 34, "row": 9 },
+    { "col": 0, "row": 0 }, { "col": 17, "row": 0 }, { "col": 34, "row": 0 },
+    { "col": 0, "row": 19 }, { "col": 34, "row": 19 },
+    { "col": 5, "row": 4 }, { "col": 29, "row": 4 },
+    { "col": 5, "row": 15 }, { "col": 29, "row": 15 },
+    { "col": 17, "row": 4 }, { "col": 17, "row": 15 },
+    { "col": 9, "row": 9 }, { "col": 25, "row": 9 }
   ],
-  "dropOnFlashingDestroy": true
+  "dropOnFlashingDestroy": true,
+  "notes": "Spawn positions match POWER_UP_SPAWN_POSITIONS in src/utils/constants.ts (35×20 field)."
 }

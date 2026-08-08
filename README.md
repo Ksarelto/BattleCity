@@ -47,24 +47,27 @@ See [LOCAL_SETUP.md](LOCAL_SETUP.md) if you need to clone or merge into `D:\Proj
 ## Controls
 
 ### Player 1
-- Move: Arrow keys / WASD
+- Move: Arrow keys / WASD (in 2P: WASD only)
 - Fire: Space / Z
 - Pause: Escape
 
 ### Player 2
-- Move: I/J/K/L
+- Move: Arrow keys (I/J/K/L also work)
 - Fire: Enter / H
 
 ## Project Structure
 
 ```
 src/
-  app/           # React screens
-  components/    # GameCanvas, HUD, touch controls
-  game/          # Engine, systems, rendering
-  store/         # Zustand state
+  pages/         # Route screens (MainMenu, GameScreen, …)
+  components/    # Shared UI (GameCanvas, GameHud, TouchControls)
+  services/      # Engine, combat, movement, render, …
+  models/        # GameWorld & entity types
+  store/         # Zustand UI state
 .spec/           # Game design specs & research
 ```
+
+Each page/component lives in its own PascalCase folder with `Component.tsx`, styles, tests, and `index.ts`.
 
 ## Specifications
 

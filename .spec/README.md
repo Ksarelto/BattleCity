@@ -7,7 +7,7 @@ Target: NES-faithful Battle City clone in React + TypeScript + PixiJS
 
 | Term | Definition |
 |------|------------|
-| Tile | One 16×16 px cell on the 13×13 grid |
+| Tile | One 32×32 px cell on the 13×13 grid |
 | Star level | Player offensive tier 0–3 (power-ups) |
 | Flashing tank | Enemy that drops a power-up when destroyed (4th, 11th, 18th spawn) |
 | Base / HQ | Eagle/phoenix fortress; game over if destroyed |
